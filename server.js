@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const express = require("express");
 // Requiero cors para poder usar un puerto desde un servidor externo
 const cors = require("cors");
@@ -10,7 +12,7 @@ const server = express();
 // express core midlewares
 server.use(express.static('public'));
 server.use(express.json());
-server.use(express.urlencoded({ extended: false }));
+server.use(express.urlencoded({ extended: true }));
 
 // external middlewares, da la posibilidad de acceder desde cualquier lugar
 server.use(cors());

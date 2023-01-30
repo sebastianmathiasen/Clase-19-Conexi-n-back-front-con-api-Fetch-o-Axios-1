@@ -1,15 +1,11 @@
-// Me conecto a travez del modelo para poder trabajar con la base de datos
-const User = require("./usersMd");
-
 // Importo la encriptacion de password
 const bc = require("../utils/handlePassword");
 
+// Me conecto a travez del modelo para poder trabajar con la base de datos
+const User = require("./usersMd");
+
 // importo direccion publica
 const public_url = process.env.public_url;
-
-const hs = require("../utils/handleStorage");
-
-console.log(hs.file);
 
 // get all users 
 const getAllUsers = (req, res) => {
@@ -17,16 +13,15 @@ const getAllUsers = (req, res) => {
     User.find().then((data) => {
         !data.length
             ? res.status(404).json({ message: "not found" })
-            : res.status(200).json();
-        res.json(data);
-    }).catch((error) => console.log(error))
+            : res.status(200).json(data);
+        // res.json(data);
+    }).catch((error) => res.status(500).json({ message: error }))
 };
 
 // create user 
 const createUser = async (req, res) => {
-    console.log(req.file);
     // Trabajo con la imagen para guardarla
-    const profilePic = `${public_url}/storage/${req.file.fileimage}`;
+    const profilePic = `${public_url}/storage/${req.file.filename}`;
     // Aqui es donde encripto la contrasenia y la paso
     const password = await bc.hashPassword(req.body.password);
 

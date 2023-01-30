@@ -11,11 +11,11 @@ const storage = multer.diskStorage({
         // Primero separo el nombre de la extencion (jpg ej) para cambiar el nombre y conservarlo
         const ext = file.originalname.split(".").pop();
         // cambio el nombre de las imagenes por si llega a pasar de que existan dos repetidas
-        const fileimage = `usrPic_${Date.now()}.${ext}`;
-        callback(null, fileimage);
+        const filename = `usrPic_${Date.now()}.${ext}`;
+        callback(null, filename);
     }
 });
 
-const uploadPic = multer({ storage: storage });
+const uploadPic = multer({ storage });
 
 module.exports = uploadPic;
